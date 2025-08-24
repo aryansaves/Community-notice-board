@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Notice Board</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* The @apply rule has been moved directly to the body tag below */
+        }
+        /* Style for the notice content area to allow line breaks */
+        .notice-content {
+            white-space: pre-wrap; /* Preserves whitespace and wraps text */
+            word-wrap: break-word; /* Breaks long words */
+        }
+        /* Custom scrollbar for better aesthetics, if needed for longer content areas */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8 bg-gray-100 text-gray-800 antialiased">
+    <div class="max-w-4xl w-full bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10">
+        <!-- Header Section -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-indigo-700 leading-tight mb-2">
+                📢 Community Notice Board
+            </h1>
+            <p class="text-lg text-gray-600">Share important updates and announcements with your community.</p>
+        </header>
+
+        <!-- User ID Display (for debugging and context) -->
+        <div class="mb-6 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md">
+            <p class="font-semibold">Your User ID:</p>
+            <p id="current-user-id" class="text-sm font-mono break-all"></p>
+            <p class="text-xs mt-2">This ID helps identify who posted notices.</p>
+        </div>
+
+        <!-- Form to Add New Notice -->
+        <section class="mb-12 p-6 bg-indigo-50 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-4">Post a New Notice</h2>
+            <form id="notice-form" class="space-y-4">
+                <div>
+                    <label for="notice-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <input type="text" id="notice-title" required
+                           class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <label for="notice-content" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                    <textarea id="notice-content" rows="5" required
+                              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out resize-y"></textarea>
+                </div>
+                <button type="submit"
+                        class="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+                    Post Notice
+                </button>
+            </form>
+            <div id="form-message" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </section>
+
+        <!-- Section to Display Notices -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Latest Notices</h2>
+            <div id="notices-container" class="space-y-6">
+                <!-- Notices will be dynamically loaded here by JavaScript -->
+                <div class="text-center text-gray-500 p-4 bg-gray-50 rounded-lg" id="loading-message">Loading notices...</div>
+            </div>
+            <div id="no-notices-message" class="text-center text-gray-500 p-4 bg-gray-50 rounded-lg hidden mt-6">No notices posted yet. Be the first!</div>
+        </section>
+    </div>
+
+    <!-- Firebase SDKs and custom script -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
